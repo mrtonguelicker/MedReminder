@@ -35,16 +35,7 @@ Built as a open source ad-free alternative to existing apps on Android.
 |---|---|
 | Dark / light mode toggle | Omar |
 
-## Timeline
-
-| Dates | Milestone |
-|---|---|
-| Mar 27 – Mar 30 | Project scaffold, SharedPreferences model, Medication data class |
-| Mar 31 – Apr 3 | Today screen + Medications tab, RecyclerViews wired up |
-| Apr 4 – Apr 7 | AlarmManager scheduling, lock screen activity, ReminderService, BroadcastReceiver |
-| Apr 8 – Apr 10 | Smart snooze + escalation, ZXing barcode scanner |
-| Apr 11 – Apr 13 | Adherence heatmap calendar, share report Intent |
-| Apr 14 – Apr 15 | Dark/light mode, edge cases, bug fixes, demo prep |
+git 
 
 ## Branch structure
 ```
