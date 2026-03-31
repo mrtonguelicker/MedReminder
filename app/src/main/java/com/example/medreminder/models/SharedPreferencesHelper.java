@@ -2,6 +2,7 @@ package com.example.medreminder.models;
 
 import android.content.SharedPreferences;
 
+import com.example.medreminder.activities.SettingsActivity;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -12,6 +13,9 @@ public class SharedPreferencesHelper {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
     private Gson gson;
+
+    public SharedPreferencesHelper(SettingsActivity settingsActivity) {
+    }
 
     public void saveMedication(Medication medication) {
         // TODO: load existing list, save the new medication to the list, save, exit
