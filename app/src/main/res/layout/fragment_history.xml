@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:text="History"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/btn_export"
+            android:text="Export"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#1E1E1E"
+            android:textColor="#FFFFFF"
+            style="@style/Widget.MaterialComponents.Button"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="12dp">
+
+        <ImageButton
+            android:id="@+id/btn_prev_month"
+            android:src="@android:drawable/ic_media_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+        <TextView
+            android:id="@+id/tv_month_year"
+            android:text="February 2026"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/btn_next_month"
+            android:src="@android:drawable/ic_media_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <GridLayout
+                android:id="@+id/grid_days_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="7"
+                android:layout_marginBottom="4dp">
+
+                <TextView android:text="Sun" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+                <TextView android:text="Mon" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+                <TextView android:text="Tue" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+                <TextView android:text="Wed" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+                <TextView android:text="Thu" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+                <TextView android:text="Fri" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+                <TextView android:text="Sat" android:layout_width="0dp" android:layout_columnWeight="1" android:gravity="center" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+
+            </GridLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <View android:layout_width="12dp" android:layout_height="12dp" android:background="#4CAF50" android:layout_marginEnd="4dp"/>
+        <TextView android:text="All taken" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary" android:layout_marginEnd="12dp"/>
+        <View android:layout_width="12dp" android:layout_height="12dp" android:background="#FFC107" android:layout_marginEnd="4dp"/>
+        <TextView android:text="Partial" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary" android:layout_marginEnd="12dp"/>
+        <View android:layout_width="12dp" android:layout_height="12dp" android:background="#F44336" android:layout_marginEnd="4dp"/>
+        <TextView android:text="Missed" android:textSize="12sp" android:textColor="?android:attr/textColorSecondary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:text="Adherence Rate"
+                    android:textSize="12sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_adherence_rate"
+                    android:text="0%"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:text="Total Doses"
+                    android:textSize="12sp"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_total_doses"
+                    android:text="0"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>
