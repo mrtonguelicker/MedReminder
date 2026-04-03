@@ -67,7 +67,7 @@ public class MedicationsFragment extends Fragment {
             public void onDeleteClick(int position) {
                 Medication medication = medicationList.get(position);
 
-                sharedPreferencesHelper.deleteMedicaiton(medication.getId());
+                sharedPreferencesHelper.deleteMedication(medication.getId());
                 medicationList.remove(position);
                 adapter.notifyItemRemoved(position);
 

@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +65,7 @@ public class SharedPreferencesHelper {
         return medications != null ? medications : new ArrayList<>();
     }
 
-    public void deleteMedicaiton(String id) {
+    public void deleteMedication(String id) {
         List<Medication> medications = getAllMedications();
         medications.removeIf(medication -> medication.getId().equals(id));
         editor.putString(KEY_MEDICATIONS, gson.toJson(medications)).apply();
@@ -76,27 +75,27 @@ public class SharedPreferencesHelper {
         // TODO: load existing logs, add new logs (append it), save, exit
     }
 
-    public List<DoseLog> getDoseLogForDate(String date) {
-        // TODO: load ALL logs, filter by whatever date the user enters, find it in the existing log, return matching return new ArrayList<>();
-
+    public List<DoseLog> getDoseLogsForDate(String date) {
+        // TODO: load ALL logs, filter by whatever date the user enters, find it in the existing log, return matching
+        return new ArrayList<>();
     }
 
     public String geTodayStatus(String medicationId) {
-        // TODO: get today's date, find latest log for this med by date and time, return status return null;
+        // TODO: get today's date, find latest log for this med by date and time, return status
         return null;
     }
 
-    public void saveSetting(boolean darkMode, boolean quietHoursEnabled, int quietStart, int quietEnd, int snoozeDuration) {
+    public void saveSettings(boolean darkMode, boolean quietHoursEnabled, int quietStart, int quietEnd, int snoozeDuration) {
         // TODO: save each setting to prefs
     }
 
     public boolean isDarkMode() {
-        // TODO: return dark mode preferences; whatever the user saved in the last session return false;
+        // TODO: return dark mode preferences; whatever the user saved in the last session
         return false;
     }
 
     public boolean isQuietHours() {
-        // TODO: check if time right now falls under quiet hours return false;
+        // TODO: check if time right now falls under quiet hours
         return false;
     }
 
