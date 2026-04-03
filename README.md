@@ -2,7 +2,8 @@
 
 An android medication reminder app build for our Mobile App Development term project 
 
-> **Platform:** Android (API 24+) | **Language:** Java | **Team:** Pragyay · Ibrahim · Omar
+> **Platform:** Android (API 24+) | **Language:** Java | **Team:** Pragyay · Ibrahim · ~~Omar~~
+
 
 ## What it does 
 
@@ -15,7 +16,8 @@ Built as a open source ad-free alternative to existing apps on Android.
 
 | Feature | Owner   |
 |---|---------|
-| Daily medication schedule | Omar    |
+| Daily medication schedule | ~~Omar~~
+    |
 | Dosage tracking (taken / snoozed / missed) | Pragyay |
 | Refill reminders when supply runs low | Ibrahim |
 | Emergency contact + share med list | Ibrahim |
@@ -27,13 +29,15 @@ Built as a open source ad-free alternative to existing apps on Android.
 | Alarm + notification + lock screen alert | Pragyay |
 | Smart snooze with escalation | Pragyay |
 | Barcode scanner to add medications | Ibrahim |
-| Adherence heatmap calendar | Omar    |
+| Adherence heatmap calendar | ~~Omar~~
+    |
 
 ### Nice to have
 
 | Feature | Owner |
 |---|---|
-| Dark / light mode toggle | Omar |
+| Dark / light mode toggle | ~~Omar~~
+ |
 
 git 
 
@@ -41,14 +45,17 @@ git
 ```
 main          ← stable only, never push here directly
 └── dev       ← integration branch, all features merge here first
-    ├── feature/today-screen        (Omar)
+    ├── feature/today-screen        (~~Omar~~)
+)
     ├── feature/dosage-tracking     (Pragyay)
     ├── feature/medications-tab     (Ibrahim)
     ├── feature/alarms              (Pragyay)
     ├── feature/snooze              (Pragyay)
     ├── feature/barcode             (Ibrahim)
-    ├── feature/history-calendar    (Omar)
-    ├── feature/settings            (Omar)
+    ├── feature/history-calendar    (~~Omar~~)
+)
+    ├── feature/settings            (~~Omar~~)
+)
     ├── xml/layouts                 (everyone)
     └── xml/drawables               (everyone)
 ```
