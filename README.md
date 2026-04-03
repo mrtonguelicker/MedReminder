@@ -1,69 +1,60 @@
-# MedReminder 
+# MedReminder
 
-An android medication reminder app build for our Mobile App Development term project 
+An android medication reminder app built for our Mobile Application Development term project.
 
 > **Platform:** Android (API 24+) | **Language:** Java | **Team:** Pragyay · Ibrahim · ~~Omar~~
 
+## What it does
 
-## What it does 
+MedReminder helps users track their daily medications with scheduled alarms, dosage logging, refill tracking, and a visual adherence history. Built as an open source, ad-free alternative to existing apps on Android.
 
-MedReminder helps users track their daily medications with schedules alarms, dosage logging, refill tracking, and a visual consistency history. 
-Built as a open source ad-free alternative to existing apps on Android. 
+## Features (Subject to change)
 
-### Features (Subject to change)
+### Core
 
-### Core 
-
-| Feature | Owner   |
-|---|---------|
-| Daily medication schedule | ~~Omar~~
-    |
+| Feature | Owner |
+|---|---|
+| Daily medication schedule | ~~Omar~~ |
 | Dosage tracking (taken / snoozed / missed) | Pragyay |
 | Refill reminders when supply runs low | Ibrahim |
 | Emergency contact + share med list | Ibrahim |
 
 ### Extra
 
-| Feature | Owner   |
-|---|---------|
+| Feature | Owner |
+|---|---|
 | Alarm + notification + lock screen alert | Pragyay |
 | Smart snooze with escalation | Pragyay |
 | Barcode scanner to add medications | Ibrahim |
-| Adherence heatmap calendar | ~~Omar~~
-    |
+| Adherence heatmap calendar | ~~Omar~~ |
 
 ### Nice to have
 
 | Feature | Owner |
 |---|---|
-| Dark / light mode toggle | ~~Omar~~
- |
-
-git 
+| Dark / light mode toggle | ~~Omar~~ |
 
 ## Branch structure
+
 ```
 main          ← stable only, never push here directly
 └── dev       ← integration branch, all features merge here first
     ├── feature/today-screen        (~~Omar~~)
-)
     ├── feature/dosage-tracking     (Pragyay)
     ├── feature/medications-tab     (Ibrahim)
     ├── feature/alarms              (Pragyay)
     ├── feature/snooze              (Pragyay)
     ├── feature/barcode             (Ibrahim)
     ├── feature/history-calendar    (~~Omar~~)
-)
     ├── feature/settings            (~~Omar~~)
-)
     ├── xml/layouts                 (everyone)
     └── xml/drawables               (everyone)
 ```
 
 **Rules:**
-- Never push directly to `main` or `dev` PLEASE; Always open a Pull Request
-- Pull `dev` into your branch every morning before you start coding so everyone is working with the latest code
-- One PR review required before merging into `dev`; As soon as you're done with a feature make a PR to merge into 'dev', PR requests will be reviewed by me every midnight :)
+- Never push directly to `main` or `dev` — always open a Pull Request
+- Pull `dev` into your branch every morning before you start coding
+- One PR review required before merging into `dev` — PRs reviewed every midnight
 
 ## Setup
 
