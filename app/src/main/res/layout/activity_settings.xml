@@ -86,6 +86,13 @@
                     android:layout_marginBottom="8dp"/>
 
                 <EditText
+                    android:id="@+id/etEmergencyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Emergency Contact Name"
+                    android:layout_marginBottom="4dp"/>
+
+                <EditText
                     android:id="@+id/et_emergency_number"
                     android:hint="Enter phone number"
                     android:inputType="phone"

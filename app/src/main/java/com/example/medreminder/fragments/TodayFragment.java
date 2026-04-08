@@ -1,4 +1,6 @@
 package com.example.medreminder.fragments;
 
-public class TodayFragment {
+import androidx.fragment.app.Fragment;
+
+public class TodayFragment extends Fragment {
 }
