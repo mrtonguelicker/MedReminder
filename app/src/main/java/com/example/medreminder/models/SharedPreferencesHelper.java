@@ -112,7 +112,7 @@ public class SharedPreferencesHelper {
     }
 
     public void saveSettings(boolean darkMode, boolean quietHoursEnabled, int quietStart, int quietEnd, int snoozeDuration) {
-        // TODO: save each setting to prefs
+        // TODO: save each setting to prefs - done in settings branch
     }
 
     public boolean isDarkMode() {
