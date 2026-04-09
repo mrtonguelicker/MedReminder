@@ -107,4 +107,3 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.TodayViewHol
     }
 }
 
-}
