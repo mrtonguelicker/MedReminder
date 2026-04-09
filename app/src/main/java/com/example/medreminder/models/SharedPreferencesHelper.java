@@ -95,6 +95,7 @@ public class SharedPreferencesHelper {
     }
 
     public boolean isDarkMode() {
+
         return prefs.getBoolean(KEY_DARK_MODE, false);
     }
 
@@ -103,6 +104,12 @@ public class SharedPreferencesHelper {
         editor.apply();
     }
 
+
+    public boolean isQuietHours() {
+        // TODO: check if time right now falls under quiet hours
+        return false;
+
+    }
     public void setQuietStart(int hour) {
         editor.putInt(KEY_QUIET_START, hour);
         editor.apply();
