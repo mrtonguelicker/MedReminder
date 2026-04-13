@@ -9,11 +9,21 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medreminder.R;
 import com.example.medreminder.models.Medication;
 import com.example.medreminder.models.SharedPreferencesHelper;
+import com.example.medreminder.services.ApiClient;
+import com.example.medreminder.services.ApiService;
+import com.example.medreminder.models.DrugResponse;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AddMedicationActivity extends AppCompatActivity {
 
@@ -49,70 +59,160 @@ public class AddMedicationActivity extends AppCompatActivity {
 
         setupFrequencySpinner();
 
-        // check if editing existing saved meds (Ibrahim)
+        // EDIT MODE
         if (getIntent() != null && getIntent().hasExtra("medication_id")) {
             medicationId = getIntent().getStringExtra("medication_id");
             isEditing = true;
-
-            // if getIntent() has a medication id extra, load that medication and pre fill the form about details (Ibrahim)
-            // TODO: load medication from SharedPreferencesHelper and pre-fill fields
         }
 
-        // TODO: setup form fields (Ibrahim)
-
-        // TODO: setup Save button (Ibrahim)
         btnSave.setOnClickListener(v -> validateAndSave());
 
-        // TODO: setup barcode scan button - just the button not the actual functionality (Ibrahim)
-        btnScan.setOnClickListener(v ->
-                Toast.makeText(this, "Barcode scanning coming soon", Toast.LENGTH_SHORT).show()
-        );
+        // ONLY ONE CLICK LISTENER (FIXED)
+        btnScan.setOnClickListener(v -> startBarcodeScan());
     }
 
+    // =========================
+    // BARCODE SCANNER
+    // =========================
+    private void startBarcodeScan() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Scan medication barcode");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+
+        barcodeLauncher.launch(options);
+    }
+
+    // SINGLE CLEAN LAUNCHER (FIXED)
+    private final ActivityResultLauncher<ScanOptions> barcodeLauncher =
+            registerForActivityResult(new ScanContract(), result -> {
+
+                if (result.getContents() == null) {
+                    Toast.makeText(this, "Scan cancelled", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String barcode = result.getContents();
+
+                if (barcode.length() < 5) {
+                    Toast.makeText(this, "Unsupported barcode", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                fetchDrugInfo(barcode);
+            });
+
+    // =========================
+    // DRUG LOOKUP
+    // =========================
+    private void fetchDrugInfo(String barcode) {
+
+        ApiService apiService = ApiClient.getClient().create(ApiService.class);
+
+        String query = "openfda.upc:" + barcode;
+
+        Call<DrugResponse> call = apiService.getDrugInfo(query);
+
+        call.enqueue(new Callback<DrugResponse>() {
+            @Override
+            public void onResponse(Call<DrugResponse> call, Response<DrugResponse> response) {
+
+                if (!response.isSuccessful()
+                        || response.body() == null
+                        || response.body().results == null
+                        || response.body().results.isEmpty()) {
+
+                    fallbackBarcode();
+                    return;
+                }
+
+                DrugResponse.Result result = response.body().results.get(0);
+
+                // NAME
+                if (result.openfda != null &&
+                        result.openfda.brand_name != null &&
+                        !result.openfda.brand_name.isEmpty()) {
+
+                    etName.setText(result.openfda.brand_name.get(0));
+                } else {
+                    etName.setText("Unknown Medication");
+                }
+
+                // DOSAGE
+                if (result.dosage_form != null &&
+                        !result.dosage_form.isEmpty()) {
+
+                    etDosage.setText(result.dosage_form.get(0));
+                }
+
+                Toast.makeText(AddMedicationActivity.this,
+                        "Drug info loaded", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<DrugResponse> call, Throwable t) {
+                fallbackBarcode();
+            }
+        });
+    }
+
+    private void fallbackBarcode() {
+        etName.setText("Unknown Medication");
+        Toast.makeText(this,
+                "No drug info found. Please enter manually.",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    // =========================
+    // SPINNER
+    // =========================
     private void setupFrequencySpinner() {
-        String[] frequencyOptions = {"Once Daily", "Twice Daily", "Three Times Daily", "Weekly", "As Needed"};
+        String[] frequencyOptions = {
+                "Once Daily",
+                "Twice Daily",
+                "Three Times Daily",
+                "Weekly",
+                "As Needed"
+        };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 frequencyOptions
         );
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFrequency.setAdapter(adapter);
     }
 
+    // =========================
+    // SAVE
+    // =========================
     private void validateAndSave() {
+
         String name = etName.getText().toString().trim();
         String dosage = etDosage.getText().toString().trim();
         String frequency = spinnerFrequency.getSelectedItem().toString();
         String pillCountStr = etPillCount.getText().toString().trim();
         String refillThresholdStr = etRefillThreshold.getText().toString().trim();
 
-        // TODO: validate the user inputs making sure all inputs are of correct type, save via SharedPreferenceHelper, finish() (Ibrahim)
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(dosage)
                 || TextUtils.isEmpty(pillCountStr) || TextUtils.isEmpty(refillThresholdStr)) {
             Toast.makeText(this, "Please fill all required fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        int pillCount;
-        int refillThreshold;
+        int pillCount, refillThreshold;
 
         try {
             pillCount = Integer.parseInt(pillCountStr);
             refillThreshold = Integer.parseInt(refillThresholdStr);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Please enter valid numeric values", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter valid numbers", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (pillCount < 0 || refillThreshold < 0) {
-            Toast.makeText(this, "Values cannot be negative", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        int timeHour;
-        int timeMinute;
+        int timeHour, timeMinute;
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             timeHour = timePicker.getHour();
