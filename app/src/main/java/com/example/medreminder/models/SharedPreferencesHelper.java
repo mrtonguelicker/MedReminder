@@ -77,10 +77,12 @@ public class SharedPreferencesHelper {
 
     public void saveDoseLog(DoseLog doseLog) {
         List<DoseLog> logs = getAllDoseLogs();
+
+        logs.add(doseLog); // 🔥 THIS WAS MISSING BEFORE FIX   Load logs → save same logs again → no change   AFTER FIX Load logs → add new log → save updated list
+
         editor.putString(KEY_DOSE_LOGS, gson.toJson(logs)).apply();
     }
-
-    private List<DoseLog> getAllDoseLogs() {
+    public List<DoseLog> getAllDoseLogs() {
         String json = prefs.getString(KEY_DOSE_LOGS, null);
         if (json == null) return new ArrayList<>();
         Type type = new TypeToken<ArrayList<DoseLog>>() {}.getType();
