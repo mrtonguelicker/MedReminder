@@ -4,6 +4,11 @@
 
 package com.example.medreminder.fragments;
 
+<<<<<<< feature/settings
+import androidx.fragment.app.Fragment;
+
+public class TodayFragment extends Fragment {
+=======
 import android.os.BadParcelableException;
 import android.os.Bundle;
 import android.text.Layout;
@@ -142,4 +147,5 @@ public class TodayFragment extends Fragment implements TodayAdapter.OnDoseAction
         statusList.set(position, "missed");
         adapter.notifyItemChanged(position);
     }
+>>>>>>> dev
 }
