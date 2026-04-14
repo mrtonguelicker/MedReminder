@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
+    private int currentSelectedItemId = R.id.nav_today;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +25,19 @@ public class MainActivity extends AppCompatActivity {
         bottomNav = findViewById(R.id.bottom_nav);
 
         if (savedInstanceState == null) {
-            loadFragment(new TodayFragment());
+            loadFragment(new TodayFragment(), false);
+            bottomNav.setSelectedItemId(R.id.nav_today);
+            currentSelectedItemId = R.id.nav_today;
         }
 
         bottomNav.setOnItemSelectedListener(item -> {
-            Fragment selectedFragment = null;
             int id = item.getItemId();
+
+            if (id == currentSelectedItemId) {
+                return true;
+            }
+
+            Fragment selectedFragment = null;
 
             if (id == R.id.nav_today) {
                 selectedFragment = new TodayFragment();
@@ -42,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (selectedFragment != null) {
-                loadFragment(selectedFragment);
+                loadFragment(selectedFragment, true);
+                currentSelectedItemId = id;
                 return true;
             }
 
@@ -50,11 +59,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
+    private void loadFragment(Fragment fragment, boolean animate) {
+        if (animate) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.anim.slide_fade_in,
+                            R.anim.slide_fade_out
+                    )
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .commit();
+        }
     }
 
     @Override
