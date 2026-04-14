@@ -8,7 +8,11 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SharedPreferencesHelper {
 
@@ -72,26 +76,52 @@ public class SharedPreferencesHelper {
     }
 
     public void saveDoseLog(DoseLog doseLog) {
-        // TODO: load existing logs, add new logs (append it), save, exit
+        List<DoseLog> logs = getAllDoseLogs();
+        editor.putString(KEY_DOSE_LOGS, gson.toJson(logs)).apply();
+    }
+
+    private List<DoseLog> getAllDoseLogs() {
+        String json = prefs.getString(KEY_DOSE_LOGS, null);
+        if (json == null) return new ArrayList<>();
+        Type type = new TypeToken<ArrayList<DoseLog>>() {}.getType();
+        List<DoseLog> logs = gson.fromJson(json, type);
+        return logs != null ? logs : new ArrayList<>();
     }
 
     public List<DoseLog> getDoseLogsForDate(String date) {
-        // TODO: load ALL logs, filter by whatever date the user enters, find it in the existing log, return matching
-        return new ArrayList<>();
+        List<DoseLog> allLogs = getAllDoseLogs();
+        List<DoseLog> filtered = new ArrayList<>();
+        for (DoseLog log : allLogs) {
+            if (log.getDate().equals(date)) {
+                filtered.add(log);
+            }
+        }
+        return filtered;
     }
 
-    public String geTodayStatus(String medicationId) {
-        // TODO: get today's date, find latest log for this med by date and time, return status
+    public String getTodayStatus(String medicationId) {
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        List<DoseLog> todaylogs = getDoseLogsForDate(today);
+
+        for (int i = todaylogs.size() - 1; i >= 0; i--) {
+            if (todaylogs.get(i).getMedicationId().equals(medicationId)) {
+                return todaylogs.get(i).getStatus();
+            }
+        }
         return null;
     }
 
     public void saveSettings(boolean darkMode, boolean quietHoursEnabled, int quietStart, int quietEnd, int snoozeDuration) {
+<<<<<<< feature/settings
         editor.putBoolean(KEY_DARK_MODE, darkMode);
         editor.putBoolean(KEY_QUIET_HOURS_ENABLED, quietHoursEnabled);
         editor.putInt(KEY_QUIET_START, quietStart);
         editor.putInt(KEY_QUIET_END, quietEnd);
         editor.putInt(KEY_SNOOZE_DURATION, snoozeDuration);
         editor.apply();
+=======
+        // TODO: save each setting to prefs - done in settings branch
+>>>>>>> dev
     }
 
     public boolean isDarkMode() {
@@ -106,6 +136,7 @@ public class SharedPreferencesHelper {
 
 
     public boolean isQuietHours() {
+<<<<<<< feature/settings
         // TODO: check if time right now falls under quiet hours
         return false;
 
@@ -113,6 +144,19 @@ public class SharedPreferencesHelper {
     public void setQuietStart(int hour) {
         editor.putInt(KEY_QUIET_START, hour);
         editor.apply();
+=======
+        if (!prefs.getBoolean(KEY_QUIET_HOURS_ENABLED, false)) return false;
+
+        int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int start = prefs.getInt(KEY_QUIET_START, 22);
+        int end = prefs.getInt(KEY_QUIET_END, 7);
+
+        if (start <= end) {
+            return currentHour >= start && currentHour < end;
+        } else {
+            return currentHour >= start || currentHour < end;
+        }
+>>>>>>> dev
     }
 
     public int getQuietStart() {
