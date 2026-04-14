@@ -1,4 +1,6 @@
 package com.example.medreminder.fragments;
 
-public class SettingsFragments {
+import androidx.fragment.app.Fragment;
+
+public class SettingsFragments extends Fragment {
 }

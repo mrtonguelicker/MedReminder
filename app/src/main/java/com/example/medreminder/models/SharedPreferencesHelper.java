@@ -114,15 +114,39 @@ public class SharedPreferencesHelper {
     }
 
     public void saveSettings(boolean darkMode, boolean quietHoursEnabled, int quietStart, int quietEnd, int snoozeDuration) {
+<<<<<<< feature/settings
+        editor.putBoolean(KEY_DARK_MODE, darkMode);
+        editor.putBoolean(KEY_QUIET_HOURS_ENABLED, quietHoursEnabled);
+        editor.putInt(KEY_QUIET_START, quietStart);
+        editor.putInt(KEY_QUIET_END, quietEnd);
+        editor.putInt(KEY_SNOOZE_DURATION, snoozeDuration);
+        editor.apply();
+=======
         // TODO: save each setting to prefs - done in settings branch
+>>>>>>> dev
     }
 
     public boolean isDarkMode() {
-        // TODO: return dark mode preferences; whatever the user saved in the last session
-        return false;
+
+        return prefs.getBoolean(KEY_DARK_MODE, false);
     }
 
+    public void setDarkMode(boolean enabled) {
+        editor.putBoolean(KEY_DARK_MODE, enabled);
+        editor.apply();
+    }
+
+
     public boolean isQuietHours() {
+<<<<<<< feature/settings
+        // TODO: check if time right now falls under quiet hours
+        return false;
+
+    }
+    public void setQuietStart(int hour) {
+        editor.putInt(KEY_QUIET_START, hour);
+        editor.apply();
+=======
         if (!prefs.getBoolean(KEY_QUIET_HOURS_ENABLED, false)) return false;
 
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
@@ -134,8 +158,30 @@ public class SharedPreferencesHelper {
         } else {
             return currentHour >= start || currentHour < end;
         }
+>>>>>>> dev
     }
 
+    public int getQuietStart() {
+        return prefs.getInt(KEY_QUIET_START, 22); // default 10 PM
+    }
+
+    public void setQuietEnd(int hour) {
+        editor.putInt(KEY_QUIET_END, hour);
+        editor.apply();
+    }
+
+    public int getQuietEnd() {
+        return prefs.getInt(KEY_QUIET_END, 7); // default 7 AM
+    }
+
+    public int getSnoozeDuration() {
+        return prefs.getInt(KEY_SNOOZE_DURATION, 5); // default = 5 mins
+    }
+
+    public void setSnoozeDuration(int minutes) {
+        editor.putInt(KEY_SNOOZE_DURATION, minutes);
+        editor.apply();
+    }
     public void saveEmergencyContact(String name, String number) {
         editor.putString(KEY_EMERGENCY_CONTACT_NAME, name);
         editor.putString(KEY_EMERGENCY_CONTACT_NUMBER, number);
@@ -149,4 +195,10 @@ public class SharedPreferencesHelper {
     public String getEmergencyContactNumber() {
         return prefs.getString(KEY_EMERGENCY_CONTACT_NUMBER, "");
     }
+
+    public void clearAllData() {
+        editor.clear();
+        editor.apply();
+    }
 }
+

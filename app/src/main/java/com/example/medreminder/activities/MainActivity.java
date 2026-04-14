@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import com.example.medreminder.R;
 import com.example.medreminder.fragments.HistoryFragment;
 import com.example.medreminder.fragments.MedicationsFragment;
-import com.example.medreminder.fragments.SettingsFragment;
 import com.example.medreminder.fragments.SettingsFragments;
 import com.example.medreminder.fragments.TodayFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
