@@ -236,9 +236,8 @@ public class MedicationsFragment extends Fragment {
         });
     }
 
-    // ==========================================
     // EDIT MEDICATION DIALOG
-    // ==========================================
+
     private void showEditDialog(int position) {
         Medication med = medicationList.get(position);
 

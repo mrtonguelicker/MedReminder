@@ -79,7 +79,7 @@ public class SettingsFragment extends Fragment {
             if (!hasFocus) saveSnooze();
         });
 
-        // Quiet hours — open custom time picker on click
+        // Quiet hours open custom time picker on click
         etQuietStart.setOnClickListener(v -> showQuietTimePicker(etQuietStart, true));
         etQuietEnd.setOnClickListener(v -> showQuietTimePicker(etQuietEnd, false));
 
