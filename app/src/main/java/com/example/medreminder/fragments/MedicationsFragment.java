@@ -1,18 +1,20 @@
 package com.example.medreminder.fragments;
 
-import android.app.TimePickerDialog;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.medreminder.utils.TimeUtils;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -161,17 +163,9 @@ public class MedicationsFragment extends Fragment {
         freqAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFreq.setAdapter(freqAdapter);
 
-        // Time picker
-        final int[] selectedHour = {8};
-        final int[] selectedMinute = {0};
-        etTime.setText(String.format(Locale.getDefault(), "%02d:%02d", selectedHour[0], selectedMinute[0]));
-        etTime.setOnClickListener(v -> {
-            new TimePickerDialog(requireContext(), (view, h, m) -> {
-                selectedHour[0] = h;
-                selectedMinute[0] = m;
-                etTime.setText(String.format(Locale.getDefault(), "%02d:%02d", h, m));
-            }, selectedHour[0], selectedMinute[0], true).show();
-        });
+        // Time field setup
+        etTime.setText(TimeUtils.format12Hour(8, 0));
+        setupTimeField(etTime);
 
         // Barcode scan
         btnScan.setOnClickListener(v -> {
@@ -218,11 +212,17 @@ public class MedicationsFragment extends Fragment {
                 return;
             }
 
+            int[] time = TimeUtils.parse(etTime.getText().toString());
+            if (time == null) {
+                Toast.makeText(requireContext(), "Invalid time format", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             String frequency = spinnerFreq.getSelectedItem().toString();
             String id = String.valueOf(System.currentTimeMillis());
 
             Medication medication = new Medication(id, name, dosage, frequency,
-                    selectedHour[0], selectedMinute[0], pillCount, refillThreshold, true);
+                    time[0], time[1], pillCount, refillThreshold, true);
 
             sharedPreferencesHelper.saveMedication(medication);
             AlarmScheduler.scheduleAlarm(requireContext(), medication);
@@ -248,8 +248,7 @@ public class MedicationsFragment extends Fragment {
         EditText etName = dialogView.findViewById(R.id.edit_name);
         EditText etDosage = dialogView.findViewById(R.id.edit_dosage);
         Spinner spinnerFreq = dialogView.findViewById(R.id.edit_frequency);
-        EditText etTimeHour = dialogView.findViewById(R.id.edit_time_hour);
-        EditText etTimeMinute = dialogView.findViewById(R.id.edit_time_minute);
+        EditText etTime = dialogView.findViewById(R.id.edit_time);
         EditText etPillCount = dialogView.findViewById(R.id.edit_pill_count);
         EditText etRefill = dialogView.findViewById(R.id.edit_refill_threshold);
 
@@ -262,8 +261,8 @@ public class MedicationsFragment extends Fragment {
         // Pre-fill values
         etName.setText(med.getName());
         etDosage.setText(med.getDosage());
-        etTimeHour.setText(String.valueOf(med.getTimeHour()));
-        etTimeMinute.setText(String.valueOf(med.getTimeMinute()));
+        etTime.setText(TimeUtils.format12Hour(med.getTimeHour(), med.getTimeMinute()));
+        setupTimeField(etTime);
         etPillCount.setText(String.valueOf(med.getPillCount()));
         etRefill.setText(String.valueOf(med.getRefillThreshold()));
 
@@ -294,29 +293,25 @@ public class MedicationsFragment extends Fragment {
             String dosage = etDosage.getText().toString().trim();
             String pillStr = etPillCount.getText().toString().trim();
             String refillStr = etRefill.getText().toString().trim();
-            String hourStr = etTimeHour.getText().toString().trim();
-            String minuteStr = etTimeMinute.getText().toString().trim();
 
             if (TextUtils.isEmpty(name) || TextUtils.isEmpty(dosage)
-                    || TextUtils.isEmpty(pillStr) || TextUtils.isEmpty(refillStr)
-                    || TextUtils.isEmpty(hourStr) || TextUtils.isEmpty(minuteStr)) {
+                    || TextUtils.isEmpty(pillStr) || TextUtils.isEmpty(refillStr)) {
                 Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            int pillCount, refillThreshold, hour, minute;
+            int pillCount, refillThreshold;
             try {
                 pillCount = Integer.parseInt(pillStr);
                 refillThreshold = Integer.parseInt(refillStr);
-                hour = Integer.parseInt(hourStr);
-                minute = Integer.parseInt(minuteStr);
             } catch (NumberFormatException e) {
                 Toast.makeText(requireContext(), "Please enter valid numbers", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (hour < 0 || hour > 23 || minute < 0 || minute > 59) {
-                Toast.makeText(requireContext(), "Invalid time", Toast.LENGTH_SHORT).show();
+            int[] time = TimeUtils.parse(etTime.getText().toString());
+            if (time == null) {
+                Toast.makeText(requireContext(), "Invalid time format", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -330,8 +325,8 @@ public class MedicationsFragment extends Fragment {
                         med.setName(name);
                         med.setDosage(dosage);
                         med.setFrequency(frequency);
-                        med.setTimeHour(hour);
-                        med.setTimeMinute(minute);
+                        med.setTimeHour(time[0]);
+                        med.setTimeMinute(time[1]);
                         med.setPillCount(pillCount);
                         med.setRefillThreshold(refillThreshold);
 
@@ -348,7 +343,12 @@ public class MedicationsFragment extends Fragment {
                     .create();
 
             confirmDialog.show();
-            confirmDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(0xFFD32F2F);
+
+            if (confirmDialog.getWindow() != null) {
+                confirmDialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_rounded_bg);
+            }
+            confirmDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(0xFFd4183d);
+            confirmDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(0xFF717182);
         });
     }
 
@@ -397,5 +397,124 @@ public class MedicationsFragment extends Fragment {
             pendingNameField.setText("Unknown Medication");
         }
         Toast.makeText(requireContext(), "No drug info found. Please enter manually.", Toast.LENGTH_SHORT).show();
+    }
+
+    // ==========================================
+    // TIME FIELD HELPER
+    // ==========================================
+    private void showCustomTimePicker(EditText etTime, TextView tvError) {
+        View pickerView = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_time_picker, null);
+
+        NumberPicker pickerHour = pickerView.findViewById(R.id.picker_hour);
+        NumberPicker pickerMinute = pickerView.findViewById(R.id.picker_minute);
+        NumberPicker pickerAmPm = pickerView.findViewById(R.id.picker_ampm);
+
+        // Hour: 1-12
+        pickerHour.setMinValue(1);
+        pickerHour.setMaxValue(12);
+        pickerHour.setWrapSelectorWheel(true);
+        String[] hourLabels = new String[12];
+        for (int i = 0; i < 12; i++) {
+            hourLabels[i] = String.format(Locale.getDefault(), "%02d", i + 1);
+        }
+        pickerHour.setDisplayedValues(hourLabels);
+
+        // Minute: 00-59
+        pickerMinute.setMinValue(0);
+        pickerMinute.setMaxValue(59);
+        pickerMinute.setWrapSelectorWheel(true);
+        String[] minuteLabels = new String[60];
+        for (int i = 0; i < 60; i++) {
+            minuteLabels[i] = String.format(Locale.getDefault(), "%02d", i);
+        }
+        pickerMinute.setDisplayedValues(minuteLabels);
+
+        // AM/PM
+        pickerAmPm.setMinValue(0);
+        pickerAmPm.setMaxValue(1);
+        pickerAmPm.setDisplayedValues(new String[]{"AM", "PM"});
+        pickerAmPm.setWrapSelectorWheel(true);
+
+        // Set current value
+        int[] current = TimeUtils.parse(etTime.getText().toString());
+        int h24 = current != null ? current[0] : 8;
+        int min = current != null ? current[1] : 0;
+
+        int h12 = h24 % 12;
+        if (h12 == 0) h12 = 12;
+        pickerHour.setValue(h12);
+        pickerMinute.setValue(min);
+        pickerAmPm.setValue(h24 >= 12 ? 1 : 0);
+
+        AlertDialog pickerDialog = new AlertDialog.Builder(requireContext())
+                .setView(pickerView)
+                .setPositiveButton("OK", (d, w) -> {
+                    int hour = pickerHour.getValue();
+                    int minute = pickerMinute.getValue();
+                    boolean isPM = pickerAmPm.getValue() == 1;
+
+                    // Convert to 24h
+                    int hour24 = hour;
+                    if (isPM && hour != 12) hour24 += 12;
+                    if (!isPM && hour == 12) hour24 = 0;
+
+                    etTime.setText(TimeUtils.format12Hour(hour24, minute));
+                    if (tvError != null) tvError.setVisibility(View.GONE);
+                    etTime.setBackgroundResource(R.drawable.edit_text_box);
+                })
+                .setNegativeButton("Cancel", null)
+                .create();
+
+        pickerDialog.show();
+
+        Window pickerWindow = pickerDialog.getWindow();
+        if (pickerWindow != null) {
+            pickerWindow.setBackgroundDrawableResource(R.drawable.dialog_rounded_bg);
+        }
+    }
+
+    @android.annotation.SuppressLint("ClickableViewAccessibility")
+    private void setupTimeField(EditText etTime) {
+        // Find the error text view (sibling in parent)
+        ViewGroup parent = (ViewGroup) etTime.getParent();
+        TextView tvError = parent.findViewById(R.id.tv_time_error);
+
+        // Auto-format on focus loss, show error for invalid input
+        etTime.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String text = etTime.getText().toString().trim();
+                if (text.isEmpty()) {
+                    // Empty is fine, just reset
+                    if (tvError != null) tvError.setVisibility(View.GONE);
+                    etTime.setBackgroundResource(R.drawable.edit_text_box);
+                    return;
+                }
+                int[] parsed = TimeUtils.parse(text);
+                if (parsed != null) {
+                    etTime.setText(TimeUtils.format12Hour(parsed[0], parsed[1]));
+                    if (tvError != null) tvError.setVisibility(View.GONE);
+                    etTime.setBackgroundResource(R.drawable.edit_text_box);
+                } else {
+                    if (tvError != null) tvError.setVisibility(View.VISIBLE);
+                    etTime.setBackgroundResource(R.drawable.edit_text_box_error);
+                }
+            }
+        });
+
+        // Tapping the clock drawable opens custom time picker
+        etTime.setOnTouchListener((v, event) -> {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (etTime.getCompoundDrawables()[2] != null) {
+                    int drawableStart = etTime.getWidth() - etTime.getPaddingEnd()
+                            - etTime.getCompoundDrawables()[2].getIntrinsicWidth();
+                    if (event.getX() >= drawableStart) {
+                        showCustomTimePicker(etTime, tvError);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        });
     }
 }

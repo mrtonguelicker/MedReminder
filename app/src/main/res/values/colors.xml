@@ -1,14 +1,41 @@
 <resources>
-    <color name="md_primary">#58A4B0</color>
-    <color name="md_secondary">#A9BCD0</color>
+    <!-- Light mode -->
+    <color name="md_primary">#030213</color>
+    <color name="md_secondary">#e9ebef</color>
+    <color name="md_light_bg">#ffffff</color>
+    <color name="md_light_surface">#ffffff</color>
+    <color name="md_text_dark">#1a1a2e</color>
+    <color name="md_muted">#ececf0</color>
+    <color name="md_muted_fg">#717182</color>
+    <color name="md_input_bg">#f3f3f5</color>
+    <color name="md_border">#1A000000</color>
+    <color name="md_accent">#e9ebef</color>
+    <color name="md_destructive">#d4183d</color>
+    <color name="md_switch_track">#cbced4</color>
 
-    <color name="md_light_bg">#F7F8FB</color>
-    <color name="md_light_surface">#FFFFFF</color>
-    <color name="md_text_dark">#373F51</color>
+    <!-- Dark mode -->
+    <color name="md_dark_bg">#0a0a0f</color>
+    <color name="md_dark_surface">#141419</color>
+    <color name="md_light_text">#e4e4e8</color>
+    <color name="md_dark_secondary">#1f1f28</color>
+    <color name="md_dark_muted">#28283a</color>
+    <color name="md_dark_muted_fg">#9494a8</color>
+    <color name="md_dark_input_bg">#1a1a24</color>
+    <color name="md_dark_border">#20FFFFFF</color>
+    <color name="md_dark_accent">#1f1f28</color>
+    <color name="md_dark_switch_track">#3a3a4a</color>
 
-    <color name="md_dark_bg">#1B1B1E</color>
-    <color name="md_dark_surface">#373F51</color>
-    <color name="md_light_text">#D8DBE2</color>
-
+    <!-- Shared -->
     <color name="white">#FFFFFF</color>
+    <color name="md_teal">#4A90A4</color>
+
+    <!-- Status colors -->
+    <color name="md_green">#22c55e</color>
+    <color name="md_green_dark">#16a34a</color>
+    <color name="md_amber">#f59e0b</color>
+    <color name="md_amber_dark">#d97706</color>
+    <color name="md_red">#ef4444</color>
+    <color name="md_red_dark">#dc2626</color>
+    <color name="md_blue">#3b82f6</color>
+    <color name="md_blue_dark">#2563eb</color>
 </resources>

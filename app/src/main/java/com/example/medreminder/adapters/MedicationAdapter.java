@@ -49,7 +49,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         holder.tvPillCount.setText(pillCount + " pills remaining");
 
         if (medication.needsRefill()) {
-            holder.tvPillCount.setTextColor(0xFFFF6D00);
+            holder.tvPillCount.setTextColor(0xFFd4183d);
         } else {
             holder.tvPillCount.setTextColor(holder.tvDosage.getCurrentTextColor());
         }

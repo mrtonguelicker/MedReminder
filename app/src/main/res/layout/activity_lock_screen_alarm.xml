@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="Medication Reminder"
         android:textSize="14sp"
-        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
         android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:text="8:00 AM"
                 android:textSize="38sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorPrimary"
                 android:layout_marginTop="20dp" />
 
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="Ibuprofen"
                 android:textSize="26sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_marginTop="10dp" />
 
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="1 tablet • After breakfast"
                     android:textSize="13sp"
-                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="?attr/colorOnSecondary"
                     android:paddingStart="14dp"
                     android:paddingTop="8dp"
@@ -147,7 +147,7 @@
             android:layout_height="58dp"
             android:text="Take Now"
             android:textAllCaps="false"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textSize="17sp"
             android:textColor="@android:color/white"
             android:background="@drawable/btn_fluent_primary" />
@@ -166,7 +166,7 @@
                 android:layout_marginEnd="6dp"
                 android:text="Snooze"
                 android:textAllCaps="false"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface"
                 android:background="@drawable/btn_fluent_outlined" />
 
@@ -178,7 +178,7 @@
                 android:layout_marginStart="6dp"
                 android:text="Miss"
                 android:textAllCaps="false"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?android:attr/textColorSecondary"
                 android:background="@drawable/btn_fluent_outlined" />
         </LinearLayout>

@@ -51,12 +51,12 @@
                     android:layout_marginTop="2dp" />
             </LinearLayout>
 
-            <TextView
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:gravity="center"
-                android:text="\uD83D\uDD25"
-                android:textSize="28sp" />
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_flame"
+                android:alpha="0.9"
+                android:contentDescription="Streak" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -70,7 +70,9 @@
         android:visibility="gone"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="#3D2B00">
+        app:cardBackgroundColor="#26ff944d"
+        app:strokeColor="#40FF9800"
+        app:strokeWidth="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -79,12 +81,13 @@
             android:gravity="center_vertical"
             android:padding="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="\u26A0"
-                android:textSize="20sp"
-                android:layout_marginEnd="12dp" />
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_alert_triangle"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Warning"
+                app:tint="#d97706" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -96,7 +99,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Refill Needed"
-                    android:textColor="#FFB74D"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     android:textSize="15sp" />
 
@@ -104,7 +107,7 @@
                     android:id="@+id/tv_refill_message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#FFCC80"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:textSize="13sp"
                     android:layout_marginTop="2dp" />
             </LinearLayout>
@@ -116,8 +119,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Today's Medications"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
         android:textColor="?attr/colorOnSurface"
         android:layout_marginBottom="12dp" />
 

@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="History"
                 android:textSize="28sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_weight="1" />
 
@@ -36,13 +36,13 @@
                 android:layout_height="42dp"
                 android:text="  Export"
                 android:textAllCaps="false"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="14sp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/btn_fluent_primary"
                 android:paddingStart="16dp"
                 android:paddingEnd="18dp"
-                android:drawableStart="@drawable/ic_export"
+                android:drawableStart="@drawable/ic_file_down"
                 android:drawablePadding="4dp" />
         </LinearLayout>
 
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:text="February 2026"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface"
                 android:layout_weight="1"
                 android:gravity="center" />
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:text="Thursday, February 26"
                     android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="?attr/colorOnSurface"
                     android:layout_marginBottom="8dp" />
 
@@ -247,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:text="0%"
                         android:textSize="30sp"
-                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -281,7 +281,7 @@
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textSize="30sp"
-                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

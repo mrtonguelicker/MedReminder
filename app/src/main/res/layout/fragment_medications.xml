@@ -26,7 +26,7 @@
                 android:layout_weight="1"
                 android:text="My Medications"
                 android:textSize="28sp"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textColor="?attr/colorOnSurface" />
 
             <TextView
@@ -57,7 +57,7 @@
         android:layout_margin="20dp"
         android:contentDescription="Add medication"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#CC58A4B0"
+        app:backgroundTint="#E6030213"
         app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

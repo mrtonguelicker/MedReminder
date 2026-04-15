@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -35,16 +36,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply dark mode before setContentView
+        SharedPreferencesHelper prefs = new SharedPreferencesHelper(this);
+        if (prefs.isDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         bottomNav = findViewById(R.id.bottom_nav);
-
-        if (savedInstanceState == null) {
-            loadFragment(new TodayFragment(), false);
-            bottomNav.setSelectedItemId(R.id.nav_today);
-            currentSelectedItemId = R.id.nav_today;
-        }
 
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -73,6 +76,15 @@ public class MainActivity extends AppCompatActivity {
 
             return false;
         });
+
+        if (savedInstanceState == null) {
+            loadFragment(new TodayFragment(), false);
+            bottomNav.setSelectedItemId(R.id.nav_today);
+            currentSelectedItemId = R.id.nav_today;
+        } else {
+            // Activity recreated (e.g. theme change) — stay on the current tab
+            currentSelectedItemId = bottomNav.getSelectedItemId();
+        }
     }
 
     private void loadFragment(Fragment fragment, boolean animate) {

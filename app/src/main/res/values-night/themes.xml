@@ -1,23 +1,17 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Theme.MedReminder" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary -->
-        <item name="colorPrimary">@color/md_primary</item>
+        <item name="colorPrimary">@color/md_teal</item>
         <item name="colorOnPrimary">@color/white</item>
 
-        <!-- Secondary -->
-        <item name="colorSecondary">@color/md_secondary</item>
-        <item name="colorOnSecondary">@color/md_dark_bg</item>
+        <item name="colorSecondary">@color/md_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_light_text</item>
 
-        <!-- Background / Surface -->
         <item name="android:colorBackground">@color/md_dark_bg</item>
         <item name="colorSurface">@color/md_dark_surface</item>
         <item name="colorOnSurface">@color/md_light_text</item>
-
-        <!-- Optional container/text support -->
         <item name="colorOnBackground">@color/md_light_text</item>
 
-        <!-- System bars -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/md_dark_bg</item>
         <item name="android:navigationBarColor">@color/md_dark_bg</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>

@@ -37,7 +37,7 @@ public class MedicationAlarmReceiver extends BroadcastReceiver {
         } else if (ACTION_MISS.equals(action)) {
             handleMiss(context, prefs, medicationId);
         } else {
-            // Alarm trigger — show notification
+            // Alarm trigger
             handleAlarmTrigger(context, prefs, intent);
         }
     }

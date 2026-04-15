@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medreminder.R;
 import com.example.medreminder.models.Medication;
+import com.example.medreminder.utils.TimeUtils;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.TodayViewHol
 
         holder.tvName.setText(medication.getName());
         holder.tvDosage.setText(medication.getDosage());
-        holder.tvTime.setText(String.format("%02d:%02d",
+        holder.tvTime.setText(TimeUtils.format12Hour(
                 medication.getTimeHour(),
                 medication.getTimeMinute()));
 
@@ -60,12 +61,18 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.TodayViewHol
             if (status.startsWith("Taken")) {
                 holder.layoutStatus.setBackgroundResource(R.drawable.status_bar_bg);
                 holder.tvStatusIcon.setText("\u2713");
+                holder.tvStatusIcon.setTextColor(0xFF16a34a);
+                holder.tvStatus.setTextColor(0xFF16a34a);
             } else if (status.startsWith("Missed")) {
                 holder.layoutStatus.setBackgroundResource(R.drawable.status_bar_bg_missed);
                 holder.tvStatusIcon.setText("\u2717");
+                holder.tvStatusIcon.setTextColor(0xFFdc2626);
+                holder.tvStatus.setTextColor(0xFFdc2626);
             } else if (status.startsWith("Snoozed")) {
                 holder.layoutStatus.setBackgroundResource(R.drawable.status_bar_bg_snoozed);
-                holder.tvStatusIcon.setText("\u23F0");
+                holder.tvStatusIcon.setText("\u23F1");
+                holder.tvStatusIcon.setTextColor(0xFFd97706);
+                holder.tvStatus.setTextColor(0xFFd97706);
             }
         } else {
             holder.layoutButtons.setVisibility(View.VISIBLE);

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Medication Name *"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="6dp" />
 
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Dosage *"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="6dp" />
 
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:text="Frequency"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="6dp" />
 
@@ -78,55 +78,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Time(s)"
+            android:text="Time"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="6dp" />
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/edit_time"
             android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="08:00 AM"
+            android:inputType="text"
+            android:textSize="15sp"
+            android:background="@drawable/edit_text_box"
+            android:paddingStart="14dp"
+            android:paddingEnd="40dp"
+            android:drawableEnd="@drawable/ic_clock"
+            android:layout_marginBottom="4dp" />
+
+        <TextView
+            android:id="@+id/tv_time_error"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp">
-
-            <EditText
-                android:id="@+id/edit_time_hour"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:hint="8"
-                android:inputType="number"
-                android:textSize="15sp"
-                android:background="@drawable/edit_text_box"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:gravity="center"
-                android:layout_marginEnd="8dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:gravity="center"
-                android:text=":"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnSurface" />
-
-            <EditText
-                android:id="@+id/edit_time_minute"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:hint="00"
-                android:inputType="number"
-                android:textSize="15sp"
-                android:background="@drawable/edit_text_box"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
-                android:gravity="center"
-                android:layout_marginStart="8dp" />
-        </LinearLayout>
+            android:text="Please enter a valid time"
+            android:textSize="12sp"
+            android:textColor="#D32F2F"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp" />
 
         <!-- Pill Count -->
         <TextView
@@ -134,7 +113,7 @@
             android:layout_height="wrap_content"
             android:text="Pill Count"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="6dp" />
 
@@ -156,7 +135,7 @@
             android:layout_height="wrap_content"
             android:text="Refill Reminder (days before)"
             android:textSize="14sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
             android:layout_marginBottom="6dp" />
 
@@ -187,7 +166,7 @@
                 android:layout_marginEnd="8dp"
                 android:text="Cancel"
                 android:textAllCaps="false"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="15sp"
                 android:textColor="?attr/colorOnSurface"
                 android:background="@drawable/btn_fluent_outlined" />
@@ -200,7 +179,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Save"
                 android:textAllCaps="false"
-                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
                 android:textSize="15sp"
                 android:textColor="@android:color/white"
                 android:background="@drawable/btn_fluent_primary" />

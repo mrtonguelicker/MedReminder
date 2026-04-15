@@ -18,26 +18,20 @@
             android:layout_height="wrap_content"
             android:text="Settings"
             android:textSize="28sp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             android:textColor="?attr/colorOnSurface"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="35dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Customize reminders, appearance, and app behavior."
-            android:textSize="14sp"
-            android:textColor="?android:attr/textColorSecondary"
-            android:layout_marginBottom="20dp" />
-
-        <!-- Appearance -->
+        <!-- Dark Mode -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:strokeColor="?attr/colorSecondary"
+            app:strokeWidth="0.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,6 +39,13 @@
                 android:orientation="horizontal"
                 android:padding="18dp"
                 android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_moon"
+                    android:layout_marginEnd="14dp"
+                    android:contentDescription="Dark mode" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -57,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:text="Dark Mode"
                         android:textSize="16sp"
-                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-medium"
                         android:textColor="?attr/colorOnSurface" />
 
                     <TextView
@@ -74,18 +75,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:thumbTint="?attr/colorPrimary"
-                    android:trackTint="?attr/colorSecondary" />
+                    android:trackTint="@color/md_switch_track" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Emergency contact -->
+        <!-- Emergency Contact -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:strokeColor="?attr/colorSecondary"
+            app:strokeWidth="0.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,14 +96,28 @@
                 android:orientation="vertical"
                 android:padding="18dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Emergency Contact"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface"
-                    android:layout_marginBottom="8dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_phone"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="Emergency contact" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Emergency Contact"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="?attr/colorOnSurface" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/etEmergencyName"
@@ -143,20 +160,22 @@
                     android:layout_height="48dp"
                     android:text="Share Medication List"
                     android:textAllCaps="false"
-                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-medium"
                     android:textColor="?attr/colorOnSurface"
                     android:background="@drawable/btn_fluent_outlined" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Quiet hours -->
+        <!-- Quiet Hours -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:strokeColor="?attr/colorSecondary"
+            app:strokeWidth="0.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,14 +183,28 @@
                 android:orientation="vertical"
                 android:padding="18dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Quiet Hours"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface"
-                    android:layout_marginBottom="10dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_quiet_hours"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="Quiet hours" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Quiet Hours"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="?attr/colorOnSurface" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -192,7 +225,8 @@
                     android:focusable="false"
                     android:clickable="true"
                     android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
+                    android:paddingEnd="40dp"
+                    android:drawableEnd="@drawable/ic_clock"
                     android:textSize="15sp"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?android:attr/textColorSecondary" />
@@ -216,7 +250,8 @@
                     android:focusable="false"
                     android:clickable="true"
                     android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
+                    android:paddingEnd="40dp"
+                    android:drawableEnd="@drawable/ic_clock"
                     android:textSize="15sp"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?android:attr/textColorSecondary" />
@@ -230,14 +265,16 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Reminder settings -->
+        <!-- Reminder Settings -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="14dp"
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="18dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:strokeColor="?attr/colorSecondary"
+            app:strokeWidth="0.5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -245,14 +282,28 @@
                 android:orientation="vertical"
                 android:padding="18dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Reminder Settings"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface"
-                    android:layout_marginBottom="10dp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_bell"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="Reminder settings" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reminder Settings"
+                        android:textSize="16sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="?attr/colorOnSurface" />
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -293,7 +344,7 @@
                             android:layout_height="wrap_content"
                             android:text="Escalating reminders"
                             android:textSize="14sp"
-                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium"
                             android:textColor="?attr/colorOnSurface" />
 
                         <TextView
@@ -315,7 +366,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Danger zone -->
+        <!-- Clear All Data -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -323,22 +374,27 @@
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="18dp"
             app:cardElevation="0dp"
-            app:strokeColor="@color/md_primary"
+            app:strokeColor="#d4183d"
             app:strokeWidth="1dp">
 
             <LinearLayout
+                android:id="@+id/btn_clear_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="18dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🗑"
-                    android:textSize="20sp"
-                    android:layout_marginEnd="12dp" />
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_delete"
+                    android:tint="#d4183d"
+                    android:layout_marginEnd="14dp"
+                    android:contentDescription="Clear data" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -347,20 +403,20 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/btn_clear_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Clear All Data"
                         android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="?attr/colorOnSurface" />
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="#d4183d" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Delete all medications and history"
                         android:textSize="12sp"
-                        android:textColor="?android:attr/textColorSecondary"
+                        android:textColor="#d4183d"
+                        android:alpha="0.7"
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
             </LinearLayout>

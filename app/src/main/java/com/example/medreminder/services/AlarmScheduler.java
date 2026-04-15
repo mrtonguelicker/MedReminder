@@ -21,7 +21,11 @@ public class AlarmScheduler {
         if (alarmManager == null) return;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (!alarmManager.canScheduleExactAlarms()) return;
+            if (!alarmManager.canScheduleExactAlarms()) {
+                // temporary log
+                android.util.Log.d("AlarmScheduler", "Cannot schedule exact alarms - permission denied");
+                return;
+            }
         }
 
         Intent intent = new Intent(context, MedicationAlarmReceiver.class);
@@ -46,6 +50,9 @@ public class AlarmScheduler {
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
+
+        //temporary log
+        android.util.Log.d("AlarmScheduler", "Scheduling alarm for " + medication.getName() + " at " + calendar.getTimeInMillis());
 
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,

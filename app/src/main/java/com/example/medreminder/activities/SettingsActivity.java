@@ -2,6 +2,7 @@ package com.example.medreminder.activities;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.medreminder.R;
 import com.example.medreminder.models.SharedPreferencesHelper;
@@ -29,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText etQuietStart, etQuietEnd;
     private SwitchCompat switchDarkMode;
     private SwitchCompat switchEscalation;
-    private TextView btnClearData;
+    private View btnClearData;
     private int startHour, endHour;
 
 
