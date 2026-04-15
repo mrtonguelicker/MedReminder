@@ -1,10 +1,14 @@
 <resources>
-    <color name="md_light_bg">#D8DBE2</color>
-    <color name="md_secondary">#A9BCD0</color>
     <color name="md_primary">#58A4B0</color>
+    <color name="md_secondary">#A9BCD0</color>
+
+    <color name="md_light_bg">#F7F8FB</color>
+    <color name="md_light_surface">#FFFFFF</color>
     <color name="md_text_dark">#373F51</color>
+
     <color name="md_dark_bg">#1B1B1E</color>
+    <color name="md_dark_surface">#373F51</color>
+    <color name="md_light_text">#D8DBE2</color>
 
     <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
 </resources>
