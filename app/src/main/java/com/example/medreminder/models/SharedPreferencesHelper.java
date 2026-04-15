@@ -28,6 +28,7 @@ public class SharedPreferencesHelper {
     private static final String KEY_QUIET_START = "key_quiet_start";
     private static final String KEY_QUIET_END = "key_quiet_end";
     private static final String KEY_SNOOZE_DURATION = "key_snooze_duration";
+    private static final String KEY_ESCALATION_ENABLED = "key_escalation_enabled";
 
     private final SharedPreferences prefs;
     private final SharedPreferences.Editor editor;
@@ -112,6 +113,18 @@ public class SharedPreferencesHelper {
         return null;
     }
 
+    public DoseLog getTodayDoseLog(String medicationId) {
+        String today = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        List<DoseLog> todayLogs = getDoseLogsForDate(today);
+
+        for (int i = todayLogs.size() - 1; i >= 0; i--) {
+            if (todayLogs.get(i).getMedicationId().equals(medicationId)) {
+                return todayLogs.get(i);
+            }
+        }
+        return null;
+    }
+
     public void saveSettings(boolean darkMode, boolean quietHoursEnabled, int quietStart, int quietEnd, int snoozeDuration) {
         editor.putBoolean(KEY_DARK_MODE, darkMode);
         editor.putBoolean(KEY_QUIET_HOURS_ENABLED, quietHoursEnabled);
@@ -168,6 +181,15 @@ public class SharedPreferencesHelper {
 
     public void setSnoozeDuration(int minutes) {
         editor.putInt(KEY_SNOOZE_DURATION, minutes);
+        editor.apply();
+    }
+
+    public boolean isEscalationEnabled() {
+        return prefs.getBoolean(KEY_ESCALATION_ENABLED, false);
+    }
+
+    public void setEscalationEnabled(boolean enabled) {
+        editor.putBoolean(KEY_ESCALATION_ENABLED, enabled);
         editor.apply();
     }
 

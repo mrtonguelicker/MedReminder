@@ -6,12 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.medreminder.R;
 import com.example.medreminder.models.SharedPreferencesHelper;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.Toast;
 import android.content.Intent;
 import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import com.example.medreminder.models.Medication;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
     private SharedPreferencesHelper prefsHelper;
@@ -20,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
     private EditText etSnoozeDuration;
     private EditText etQuietStart, etQuietEnd;
     private SwitchCompat switchDarkMode;
+    private SwitchCompat switchEscalation;
     private TextView btnClearData;
     private int startHour, endHour;
 
@@ -38,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
         etQuietEnd = findViewById(R.id.et_quiet_end);
         switchDarkMode = findViewById(R.id.switch_dark_mode);
         btnClearData = findViewById(R.id.btn_clear_data);
+        switchEscalation = findViewById(R.id.switch_escalation);
 
         // Load saved data
         etEmergencyName.setText(prefsHelper.getEmergencyContactName());
@@ -95,11 +105,48 @@ public class SettingsActivity extends AppCompatActivity {
 
         btnClearData.setOnClickListener(v -> showClearDataDialog());
 
-        // TODO: dark mode toggle DONE !!!!
-        // TODO: emergency contact name + number fields (Ibrahim) DONE!!!!!
-        // TODO: quiet hours start and end time pickers  DONE !!!!
-        // TODO: snooze duration setting DONE!!!!
-        // TODO: clear all data button with confirmation dialog DONE!!!!
+        // Escalation switch
+        switchEscalation.setChecked(prefsHelper.isEscalationEnabled());
+        switchEscalation.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            prefsHelper.setEscalationEnabled(isChecked);
+        });
+
+        // Share medication list
+        Button btnShareMeds = findViewById(R.id.btn_share_meds);
+        btnShareMeds.setOnClickListener(v -> shareMedicationList());
+    }
+
+    private void shareMedicationList() {
+        List<Medication> meds = prefsHelper.getAllMedications();
+        if (meds.isEmpty()) {
+            Toast.makeText(this, "No medications to share", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Medication List\n");
+        sb.append("Generated: ").append(new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(new Date())).append("\n\n");
+
+        for (Medication med : meds) {
+            sb.append("- ").append(med.getName())
+                    .append(" (").append(med.getDosage()).append(")")
+                    .append(" | ").append(med.getFrequency())
+                    .append(" at ").append(String.format("%02d:%02d", med.getTimeHour(), med.getTimeMinute()))
+                    .append(" | Pills: ").append(med.getPillCount())
+                    .append("\n");
+        }
+
+        String contactName = prefsHelper.getEmergencyContactName();
+        if (!contactName.isEmpty()) {
+            sb.append("\nEmergency Contact: ").append(contactName)
+                    .append(" (").append(prefsHelper.getEmergencyContactNumber()).append(")");
+        }
+
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My Medication List");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, sb.toString());
+        startActivity(Intent.createChooser(shareIntent, "Share via"));
     }
 
     private void saveEmergencyContact() {

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="?android:colorBackground"
     android:padding="24dp">
 
@@ -27,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="?attr/colorSurface"
         app:layout_constraintTop_toBottomOf="@id/tv_alarm_label"
         app:layout_constraintBottom_toTopOf="@id/layout_actions"
@@ -140,7 +141,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="26dp">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/btn_take_now"
             android:layout_width="match_parent"
             android:layout_height="58dp"
@@ -149,8 +150,7 @@
             android:textStyle="bold"
             android:textSize="17sp"
             android:textColor="@android:color/white"
-            app:backgroundTint="?attr/colorPrimary"
-            app:cornerRadius="18dp" />
+            android:background="@drawable/btn_fluent_primary" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -158,9 +158,8 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp">
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btn_snooze"
-                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="54dp"
                 android:layout_weight="1"
@@ -169,12 +168,10 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="?attr/colorOnSurface"
-                app:cornerRadius="16dp"
-                app:strokeColor="?attr/colorSecondary" />
+                android:background="@drawable/btn_fluent_outlined" />
 
-            <com.google.android.material.button.MaterialButton
+            <Button
                 android:id="@+id/btn_miss"
-                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="54dp"
                 android:layout_weight="1"
@@ -183,8 +180,7 @@
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 android:textColor="?android:attr/textColorSecondary"
-                app:cornerRadius="16dp"
-                app:strokeColor="?attr/colorSecondary" />
+                android:background="@drawable/btn_fluent_outlined" />
         </LinearLayout>
     </LinearLayout>
 

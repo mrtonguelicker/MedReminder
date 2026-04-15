@@ -42,9 +42,17 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         Medication medication = medicationList.get(position);
 
         holder.tvName.setText(medication.getName());
-        holder.tvDosage.setText("Dosage: " + medication.getDosage());
-        holder.tvFrequency.setText("Frequency: " + medication.getFrequency());
-        holder.tvPillCount.setText("Pills Left: " + medication.getPillCount());
+        holder.tvDosage.setText(medication.getDosage());
+        holder.tvFrequency.setText(medication.getFrequency());
+
+        int pillCount = medication.getPillCount();
+        holder.tvPillCount.setText(pillCount + " pills remaining");
+
+        if (medication.needsRefill()) {
+            holder.tvPillCount.setTextColor(0xFFFF6D00);
+        } else {
+            holder.tvPillCount.setTextColor(holder.tvDosage.getCurrentTextColor());
+        }
 
         holder.btnEdit.setOnClickListener(v -> {
             if (listener != null) {

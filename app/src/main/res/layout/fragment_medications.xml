@@ -20,68 +20,32 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="18dp">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:text="My Medications"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="My Medications"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Manage your active prescriptions and reminders"
-                    android:textSize="13sp"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:layout_marginTop="2dp" />
-            </LinearLayout>
-
-            <com.google.android.material.card.MaterialCardView
+            <TextView
+                android:id="@+id/tv_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="?attr/colorSurface">
-
-                <TextView
-                    android:id="@+id/tv_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="14dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="14dp"
-                    android:paddingBottom="10dp"
-                    android:text="0 meds"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorPrimary" />
-            </com.google.android.material.card.MaterialCardView>
+                android:text="0 total"
+                android:textSize="14sp"
+                android:textColor="?android:attr/textColorSecondary" />
 
         </LinearLayout>
 
-        <!-- List container -->
-        <com.google.android.material.card.MaterialCardView
+        <!-- Medication list (no wrapper card) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_medications"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="?attr/colorSurface">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_medications"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="12dp"
-                android:clipToPadding="false" />
-        </com.google.android.material.card.MaterialCardView>
+            android:clipToPadding="false" />
 
     </LinearLayout>
 
@@ -92,8 +56,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
         android:contentDescription="Add medication"
-        android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="?attr/colorPrimary"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="#CC58A4B0"
         app:tint="@android:color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -54,27 +54,22 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.TodayViewHol
 
         if (status != null) {
             holder.layoutButtons.setVisibility(View.GONE);
-            holder.tvStatus.setVisibility(View.VISIBLE);
+            holder.layoutStatus.setVisibility(View.VISIBLE);
+            holder.tvStatus.setText(status);
 
-            switch (status) {
-                case "taken":
-                    holder.tvStatus.setText("Taken");
-                    holder.tvStatus.setTextColor(0xFF4CAF50);
-                    break;
-
-                case "missed":
-                    holder.tvStatus.setText("Missed");
-                    holder.tvStatus.setTextColor(0xFFB71C1C);
-                    break;
-
-                case "snoozed":
-                    holder.tvStatus.setText("Snoozed");
-                    holder.tvStatus.setTextColor(0xFFE65100);
-                    break;
+            if (status.startsWith("Taken")) {
+                holder.layoutStatus.setBackgroundResource(R.drawable.status_bar_bg);
+                holder.tvStatusIcon.setText("\u2713");
+            } else if (status.startsWith("Missed")) {
+                holder.layoutStatus.setBackgroundResource(R.drawable.status_bar_bg_missed);
+                holder.tvStatusIcon.setText("\u2717");
+            } else if (status.startsWith("Snoozed")) {
+                holder.layoutStatus.setBackgroundResource(R.drawable.status_bar_bg_snoozed);
+                holder.tvStatusIcon.setText("\u23F0");
             }
         } else {
             holder.layoutButtons.setVisibility(View.VISIBLE);
-            holder.tvStatus.setVisibility(View.GONE);
+            holder.layoutStatus.setVisibility(View.GONE);
         }
 
         holder.btnTake.setOnClickListener(v -> {
@@ -97,9 +92,9 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.TodayViewHol
 
     static class TodayViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvDosage, tvTime, tvStatus;
+        TextView tvName, tvDosage, tvTime, tvStatus, tvStatusIcon;
         Button btnTake, btnSnooze, btnMiss;
-        View layoutButtons;
+        View layoutButtons, layoutStatus;
 
         public TodayViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -108,12 +103,14 @@ public class TodayAdapter extends RecyclerView.Adapter<TodayAdapter.TodayViewHol
             tvDosage = itemView.findViewById(R.id.tv_dosage);
             tvTime = itemView.findViewById(R.id.tv_time);
             tvStatus = itemView.findViewById(R.id.tv_status);
+            tvStatusIcon = itemView.findViewById(R.id.tv_status_icon);
 
             btnTake = itemView.findViewById(R.id.btn_take);
             btnSnooze = itemView.findViewById(R.id.btn_snooze);
             btnMiss = itemView.findViewById(R.id.btn_miss);
 
             layoutButtons = itemView.findViewById(R.id.layout_buttons);
+            layoutStatus = itemView.findViewById(R.id.layout_status);
         }
     }
 }

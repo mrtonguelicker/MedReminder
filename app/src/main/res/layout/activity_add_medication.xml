@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:fillViewport="true"
     android:background="?android:colorBackground">
 
@@ -35,7 +36,7 @@
             android:layout_marginBottom="20dp"
             app:cardBackgroundColor="?attr/colorSurface"
             app:cardCornerRadius="18dp"
-            app:cardElevation="4dp">
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,27 +63,29 @@
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="0dp"
-                        android:layout_height="52dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1"
                         android:layout_marginEnd="10dp"
-                        android:backgroundTint="?attr/colorPrimary"
+                        android:background="@drawable/edit_text_box"
                         android:hint="e.g. Ibuprofen"
                         android:inputType="textCapWords"
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
+                        android:textSize="15sp"
                         android:textColor="?attr/colorOnSurface"
                         android:textColorHint="?android:attr/textColorSecondary" />
 
-                    <com.google.android.material.button.MaterialButton
+                    <Button
                         android:id="@+id/btn_scan"
                         android:layout_width="wrap_content"
                         android:layout_height="52dp"
-                        android:text="Scan"
+                        android:text="  Scan"
                         android:textAllCaps="false"
                         android:textStyle="bold"
-                        app:backgroundTint="?attr/colorSecondary"
-                        android:textColor="?attr/colorOnSecondary"
-                        app:cornerRadius="14dp" />
+                        android:textColor="?attr/colorOnSurface"
+                        android:background="@drawable/btn_fluent_outlined"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="18dp" />
                 </LinearLayout>
 
                 <TextView
@@ -97,13 +100,14 @@
                 <EditText
                     android:id="@+id/et_dosage"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="18dp"
-                    android:backgroundTint="?attr/colorPrimary"
+                    android:background="@drawable/edit_text_box"
                     android:hint="e.g. 200mg"
                     android:inputType="text"
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
+                    android:textSize="15sp"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?android:attr/textColorSecondary" />
 
@@ -119,9 +123,11 @@
                 <Spinner
                     android:id="@+id/spinner_frequency"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="18dp"
-                    android:backgroundTint="?attr/colorPrimary"
+                    android:background="@drawable/edit_text_box"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:popupBackground="?attr/colorSurface" />
 
                 <TextView
@@ -152,13 +158,14 @@
                 <EditText
                     android:id="@+id/et_pill_count"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="18dp"
-                    android:backgroundTint="?attr/colorPrimary"
+                    android:background="@drawable/edit_text_box"
                     android:hint="e.g. 30"
                     android:inputType="number"
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
+                    android:textSize="15sp"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?android:attr/textColorSecondary" />
 
@@ -174,26 +181,27 @@
                 <EditText
                     android:id="@+id/et_refill_threshold"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="24dp"
-                    android:backgroundTint="?attr/colorPrimary"
+                    android:background="@drawable/edit_text_box"
                     android:hint="e.g. 5"
                     android:inputType="number"
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
+                    android:textSize="15sp"
                     android:textColor="?attr/colorOnSurface"
                     android:textColorHint="?android:attr/textColorSecondary" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
                     android:id="@+id/btn_save"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:text="Save Medication"
                     android:textAllCaps="false"
                     android:textStyle="bold"
+                    android:textSize="16sp"
                     android:textColor="@android:color/white"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:cornerRadius="16dp" />
+                    android:background="@drawable/btn_fluent_primary" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

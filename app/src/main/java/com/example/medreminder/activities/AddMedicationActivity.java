@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.medreminder.R;
 import com.example.medreminder.models.Medication;
 import com.example.medreminder.models.SharedPreferencesHelper;
+import com.example.medreminder.services.AlarmScheduler;
 import com.example.medreminder.services.ApiClient;
 import com.example.medreminder.services.ApiService;
 import com.example.medreminder.models.DrugResponse;
@@ -239,6 +240,7 @@ public class AddMedicationActivity extends AppCompatActivity {
         );
 
         sharedPreferencesHelper.saveMedication(medication);
+        AlarmScheduler.scheduleAlarm(this, medication);
 
         Toast.makeText(this, "Medication saved", Toast.LENGTH_SHORT).show();
         finish();
