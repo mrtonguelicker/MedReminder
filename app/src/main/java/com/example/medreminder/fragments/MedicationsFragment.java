@@ -358,7 +358,7 @@ public class MedicationsFragment extends Fragment {
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         String query = "openfda.upc:" + barcode;
 
-        apiService.getDrugInfo(query).enqueue(new Callback<DrugResponse>() {
+        apiService.getDrugInfo(query, 1).enqueue(new Callback<DrugResponse>() {
             @Override
             public void onResponse(Call<DrugResponse> call, Response<DrugResponse> response) {
                 if (!response.isSuccessful() || response.body() == null
