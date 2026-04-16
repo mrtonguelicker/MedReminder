@@ -13,18 +13,21 @@
     <color name="md_destructive">#d4183d</color>
     <color name="md_switch_track">#cbced4</color>
 
-    <!-- Dark mode -->
-    <color name="md_dark_bg">#0a0a0f</color>
-    <color name="md_dark_surface">#141419</color>
-    <color name="md_light_text">#e4e4e8</color>
-    <color name="md_dark_secondary">#1f1f28</color>
-    <color name="md_dark_muted">#28283a</color>
-    <color name="md_dark_muted_fg">#9494a8</color>
-    <color name="md_dark_input_bg">#1a1a24</color>
-    <color name="md_dark_border">#20FFFFFF</color>
-    <color name="md_dark_accent">#1f1f28</color>
-    <color name="md_dark_switch_track">#3a3a4a</color>
+    <!-- Dark mode (IMPROVED) -->
+    <color name="md_dark_bg">#121212</color> <!-- softer base -->
 
+    <color name="md_dark_surface">#1E1E1E</color> <!-- main cards -->
+    <color name="md_dark_secondary">#23232B</color> <!-- slightly elevated -->
+    <color name="md_dark_accent">#2A2A35</color> <!-- subtle contrast -->
+
+    <color name="md_light_text">#E6E6EB</color> <!-- softer white -->
+    <color name="md_dark_muted_fg">#A1A1B3</color> <!-- better readability -->
+
+    <color name="md_dark_muted">#2F2F3A</color> <!-- muted backgrounds -->
+    <color name="md_dark_input_bg">#2A2A35</color>
+
+    <color name="md_dark_border">#33FFFFFF</color> <!-- slightly stronger border -->
+    <color name="md_dark_switch_track">#444455</color>
     <!-- Shared -->
     <color name="white">#FFFFFF</color>
     <color name="md_teal">#4A90A4</color>
