@@ -14,11 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medreminder.R;
 import com.example.medreminder.models.Medication;
+import com.example.medreminder.models.OpenFoodResponse;
 import com.example.medreminder.models.SharedPreferencesHelper;
 import com.example.medreminder.services.AlarmScheduler;
 import com.example.medreminder.services.ApiClient;
 import com.example.medreminder.services.ApiService;
 import com.example.medreminder.models.DrugResponse;
+import com.example.medreminder.services.OpenFoodApiClient;
+import com.example.medreminder.services.OpenFoodApiService;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
@@ -106,13 +109,52 @@ public class AddMedicationActivity extends AppCompatActivity {
     // =========================
     // DRUG LOOKUP
     // =========================
+
     private void fetchDrugInfo(String barcode) {
+
+        // 🔥 STEP 1: Try OpenFoodFacts (BEST MATCH RATE)
+        OpenFoodApiService foodApi =
+                OpenFoodApiClient.getClient().create(OpenFoodApiService.class);
+
+        foodApi.getProduct(barcode).enqueue(new Callback<OpenFoodResponse>() {
+            @Override
+            public void onResponse(Call<OpenFoodResponse> call,
+                                   Response<OpenFoodResponse> response) {
+
+                if (response.isSuccessful()
+                        && response.body() != null
+                        && response.body().product != null
+                        && response.body().product.product_name != null) {
+
+                    // ✅ SUCCESS (most cases)
+                    etName.setText(response.body().product.product_name);
+
+                    if (response.body().product.quantity != null) {
+                        etDosage.setText(response.body().product.quantity);
+                    }
+
+                    Toast.makeText(AddMedicationActivity.this,
+                            "Auto-filled from barcode", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    // 🔁 FALLBACK → OpenFDA
+                    fetchFromOpenFDA(barcode);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OpenFoodResponse> call, Throwable t) {
+                // 🔁 FALLBACK → OpenFDA
+                fetchFromOpenFDA(barcode);
+            }
+        });
+    }
+    private void fetchFromOpenFDA(String barcode) {
 
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        String query = "openfda.upc:" + barcode;
-
-        Call<DrugResponse> call = apiService.getDrugInfo(query);
+        Call<DrugResponse> call =
+                apiService.getDrugInfo("openfda.upc:" + barcode, 1);
 
         call.enqueue(new Callback<DrugResponse>() {
             @Override
@@ -129,25 +171,18 @@ public class AddMedicationActivity extends AppCompatActivity {
 
                 DrugResponse.Result result = response.body().results.get(0);
 
-                // NAME
-                if (result.openfda != null &&
-                        result.openfda.brand_name != null &&
-                        !result.openfda.brand_name.isEmpty()) {
+                if (result.openfda != null
+                        && result.openfda.brand_name != null
+                        && !result.openfda.brand_name.isEmpty()) {
 
                     etName.setText(result.openfda.brand_name.get(0));
-                } else {
-                    etName.setText("Unknown Medication");
                 }
 
-                // DOSAGE
-                if (result.dosage_form != null &&
-                        !result.dosage_form.isEmpty()) {
+                if (result.dosage_form != null
+                        && !result.dosage_form.isEmpty()) {
 
                     etDosage.setText(result.dosage_form.get(0));
                 }
-
-                Toast.makeText(AddMedicationActivity.this,
-                        "Drug info loaded", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -160,7 +195,7 @@ public class AddMedicationActivity extends AppCompatActivity {
     private void fallbackBarcode() {
         etName.setText("Unknown Medication");
         Toast.makeText(this,
-                "No drug info found. Please enter manually.",
+                "No data found. Please enter manually.",
                 Toast.LENGTH_SHORT).show();
     }
 
